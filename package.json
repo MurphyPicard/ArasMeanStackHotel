@@ -4,6 +4,7 @@
   "description": "Ara's first Hotel\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[F\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[CApp",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "test"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/MurphyPicard/meanStackHotel/issues"
   },
-  "homepage": "https://github.com/MurphyPicard/meanStackHotel#readme"
+  "homepage": "https://github.com/MurphyPicard/meanStackHotel#readme",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
 }
