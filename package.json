@@ -1,0 +1,23 @@
+{
+  "name": "meanstackhotel",
+  "version": "1.0.0",
+  "description": "Ara's first Hotel\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[F\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[CApp",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MurphyPicard/meanStackHotel.git"
+  },
+  "keywords": [
+    "no",
+    "keywords"
+  ],
+  "author": "Ara Yaghsizian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MurphyPicard/meanStackHotel/issues"
+  },
+  "homepage": "https://github.com/MurphyPicard/meanStackHotel#readme"
+}
