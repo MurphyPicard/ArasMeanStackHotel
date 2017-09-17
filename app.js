@@ -3,6 +3,7 @@ var app = express();
 
 app.set('port', 2222);
 
-app.listen(app.get('port'), function(){
-  console.log('Listening on ... ' + app.get('port'));
+var server = app.listen(app.get('port'), function(){
+  var port = server.address().port;
+  console.log('Listening on ... ' + port);
 });
