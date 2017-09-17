@@ -6,7 +6,7 @@ app.set('port', 2222);
 
 app.get('/', function(req,res){
   console.log("get the homepage");
-  res.status(200).send('hi home');
+  res.status(200).sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.get('/json', function(req,res){
