@@ -10,10 +10,19 @@ module.exports.hotelsGetAll = function(req,res){
   (req.query.count) ? count = parseInt(req.query.count, 10) : count = 5 ;
 
   var returnData = hotelData.slice(start, start+count); // just a few of the many
+  var resorts = [];
+
+  returnData.forEach(function(resort){
+    resorts.push(resort["name"]);
+  });
+  // for(var i = 0; i < returnData.length; i++){
+  //   resorts.push(returnData[i]['name']);
+  // };
 
   res
     .status(200)
-    .json(returnData);
+    .send(resorts);
+    //.json(resorts);
 };
 
 module.exports.hotelsGetOne = function(req,res){
@@ -21,7 +30,7 @@ module.exports.hotelsGetOne = function(req,res){
   console.log("getting one hotel with ID of ", hotelId );
   res
     .status(200)
-    .json(hotelData[hotelId]); // using the params to pick a specific hotel
+    .json(hotelData[hotelId]["name"]); // using the params to pick a specific hotel
 };
 
 module.exports.hotelsAddOne = function(req,res){
