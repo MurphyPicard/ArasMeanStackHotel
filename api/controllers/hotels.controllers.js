@@ -29,5 +29,5 @@ module.exports.hotelsAddOne = function(req,res){
   console.log(req.body);
   res
     .status(200)
-    .json(req.body); 
+    .json(req.body);
 };

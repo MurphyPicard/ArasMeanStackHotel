@@ -1,0 +1,33 @@
+[
+  {
+    "PostId": 1,
+    "Title": "My post Title1",
+    "Content": "Some Content",
+    "Comments": [
+      {
+        "CommentId": 1,
+        "Content": "comment on post 1"
+      }
+    ]
+  },
+  {
+    "PostId": 2,
+    "Title": "My post Title2",
+    "Content": "Some Content",
+    "Comments": [
+      {
+        "CommentId": 2,
+        "Content": "comment on post 2"
+      },
+      {
+        "CommentId": 3,
+        "Content": "another comment on post 2"
+      }
+    ]
+  },
+  {
+    "PostId": 3,
+    "Title": "My post Title3",
+    "Content": "Some Content"
+  }
+]
