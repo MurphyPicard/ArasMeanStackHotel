@@ -1,6 +1,7 @@
 var express = require('express');
 var app = express();
 var path = require('path');
+var bodyParser = require('body-parser'); // between path and routes
 
 var routes = require('./api/routes');
 
@@ -12,6 +13,9 @@ app.use('/css', function(req, res, next){
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+// don't need to run bodyParser on static paths
+app.use(bodyParser.urlencoded({ extended: false })); // false means we only need strings and arrays in our form
 
 app.use('/api', routes);
 
