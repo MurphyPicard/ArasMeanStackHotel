@@ -34,10 +34,9 @@ module.exports.hotelsGetOne = function(req,res){
         .status(200)
         .json(doc);
     });
-
-
 };
 
+// ON lecture 23 09/20/17
 module.exports.hotelsAddOne = function(req,res){
   var db = dbconn.get();
   var collection = db.collection('hotelCollection');
