@@ -50,10 +50,12 @@ module.exports.hotelsAddOne = function(req,res){
 
     console.log("this is new hotel line 51ish: ", newHotel );
     collection.insertOne(newHotel, function(err, response){
-      console.log(response);
+      console.log("response line 53: ",response);
+      console.log("response.ops line 54: ", response.ops);
+
       res
         .status(201)
-        .json(response);
+        .json(response.ops);
     });
   }//if
   else{
