@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Hotel = mongoose.model('Hotel');
+// may need to review error handling
 
 // get all reviews for one hotel
 module.exports.reviewsGetAll = function(req, res){
@@ -49,4 +50,53 @@ module.exports.reviewsGetOne = function(req, res){
       }
 
     });
+};
+
+//helper function
+var _addReview = function(req, res, hotel){
+
+  hotel.reviews.push({
+    name: req.body.name,
+    rating: parseInt(req.body.rating, 10),
+    review: req.body.review
+  });
+
+  hotel.save(function(err, hotelUpdated){
+    if(err){
+      res.status(500).json(err);
+    }else{
+      res.status(201).json(hotelUpdated);
+    }
+  });
+};
+
+module.exports.reviewsAddOne = function(req, res){
+  var hotelId = req.params.hotelId; // I named this route in index.js
+  console.log(" ", hotelId );
+
+  Hotel
+    .findById(hotelId)
+    .select('reviews')
+    .exec(function(err, doc){
+      var response = {
+        status: 200,
+        message: []
+      }
+
+      if(err){
+        console.log("Error adding review");
+        response.status = 500;
+        response.message = err;
+      }else if(!doc){
+        console.log("returned doc: ", doc);
+        response.status = 404;
+        response.message = "not found"
+      }
+
+      if(doc){
+        _addReview(req, res, doc);
+      }else {
+        res.status(response.status).json(response.message);
+      }//else
+    });//exec
 };
