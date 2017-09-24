@@ -46,7 +46,15 @@ var hotelSchema = new mongoose.Schema({
   photos: [String],
   currency: String,
   reviews: [reviewSchema],
-  rooms: [roomSchema]
+  rooms: [roomSchema],
+  location: {
+    address: String,
+    // longitude E/W first
+    coordinates: {
+      type: [Number],
+      index: '2dsphere'
+    }
+  }
 });
 
 mongoose.model('Hotel', hotelSchema, 'hotelCollection');
