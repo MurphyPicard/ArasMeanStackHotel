@@ -16,9 +16,9 @@ router
 router
   .route('/hotels/new')
   .post(ctrlHotels.hotelsAddOne);
+
+
 /*
-
-
 
 update a specific hotel
 PUT
@@ -44,7 +44,6 @@ PUT - update one review
 
 DELETE one review
 /api/hotels/23/reviews/123
-
 
 */
 
