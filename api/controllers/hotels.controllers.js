@@ -32,7 +32,8 @@ var runGeoQuery = function(req, res){
 
 module.exports.hotelsGetAll = function(req,res){
 
-  var start = 0, count = 3; // which hotel to start at and how many to show
+  var start = 0, count = 3, maxCount = 10; // which hotel to start at and how many to show
+
   if(req.query && req.query.lat && req.query.lng){
     runGeoQuery(req,res);
     return;
@@ -41,14 +42,35 @@ module.exports.hotelsGetAll = function(req,res){
   (req.query.start) ? start = parseInt(req.query.start, 10) : start = 0 ;
   (req.query.count) ? count = parseInt(req.query.count, 10) : count = 5 ;
 
+  if(isNaN(start) || isNaN(count) ){
+    res
+      .status(400)
+      .json( {"message": "start and/or count must be numbers"} );
+      return;
+  }
+
+  if(count > maxCount){
+    res
+      .status(400)
+      .json({"message": "count limit of " + maxCount + " exceeded"});
+      return;
+  }
+
   Hotel
     .find()
     .skip(start)
     .limit(count)
     .exec(function(err, hotels){
-      console.log("Found this many hotels: ", hotels.length);
-      res.json(hotels);
-    });
+      if(err){
+        console.log("Error finding hotels, hotels controller: ");
+        res
+          .status(500)
+          .json(err);
+      }else{
+        console.log("Found this many hotels: ", hotels.length);
+        res.json(hotels);
+      }
+    });//exec
   // var db = dbconn.get();
   // var collection = db.collection('hotelCollection');
   // collection
@@ -64,23 +86,27 @@ module.exports.hotelsGetAll = function(req,res){
 };
 
 module.exports.hotelsGetOne = function(req,res){
-  // var db = dbconn.get();
-  // var collection = db.collection('hotelCollection');
   var hotelId = req.params.hotelId; // I named this route in index.js
   console.log("getting one hotel with ID of ", hotelId );
 
   Hotel
     .findById(hotelId)
     .exec(function(err, doc){
-      res
-        .status(200)
-        .json(doc);
+      var response = {status: 200, message: doc};
+      if(err){
+        console.log("Error finding hotel, hotels controller");
+        response.status = 500;
+        response.message = err;
+      }else if(!doc){
+        response.status = 404;
+        response.message = {"message": "Hotel Id not found, hotels controller"};
+      }
+
+      // status and message set above
+      // there seems to be a bug seeing the response on error and !doc
+      res.status(response.status).json(response.message);
+
     });
-    // .findOne( { _id : ObjectId(hotelId) } , function(err, doc){
-    //   res
-    //     .status(200)
-    //     .json(doc);
-    // });
 };
 
 // ON lecture 23 09/20/17
