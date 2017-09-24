@@ -4,9 +4,40 @@
 var mongoose = require('mongoose');
 var Hotel = mongoose.model('Hotel');
 
+var runGeoQuery = function(req, res){
+  var lng = parseFloat(req.query.lng);
+  var lat = parseFloat(req.query.lat);
+
+  // a geoJSON point
+  var point = {
+    type: "Point",
+    coordinates: [lng, lat]
+  };
+
+  var geoOptions = {
+    spherical: true,
+    maxDistance: 99000,
+    num: 5
+  }
+
+  Hotel
+    .geoNear(point, geoOptions, function(err, results, stats){
+        console.log("this is geo results: ", results);
+        console.log("this is geo stats: ", stats);
+        res
+          .status(200)
+          .json(results);
+    });
+};
+
 module.exports.hotelsGetAll = function(req,res){
 
   var start = 0, count = 3; // which hotel to start at and how many to show
+  if(req.query && req.query.lat && req.query.lng){
+    runGeoQuery(req,res);
+    return;
+  }
+
   (req.query.start) ? start = parseInt(req.query.start, 10) : start = 0 ;
   (req.query.count) ? count = parseInt(req.query.count, 10) : count = 5 ;
 
