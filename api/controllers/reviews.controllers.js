@@ -65,7 +65,8 @@ var _addReview = function(req, res, hotel){
     if(err){
       res.status(500).json(err);
     }else{
-      res.status(201).json(hotelUpdated);
+      console.log("line 68");
+      res.status(201).json(hotelUpdated.reviews[hotelUpdated.reviews.length - 1]);
     }
   });
 };
