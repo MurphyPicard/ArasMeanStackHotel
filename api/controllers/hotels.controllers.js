@@ -18,10 +18,8 @@ module.exports.hotelsGetAll = function(req,res){
       console.log("Found this many hotels: ", hotels.length);
       res.json(hotels);
     });
-
   // var db = dbconn.get();
   // var collection = db.collection('hotelCollection');
-
   // collection
   //   .find()
   //   .skip(start)
@@ -35,17 +33,23 @@ module.exports.hotelsGetAll = function(req,res){
 };
 
 module.exports.hotelsGetOne = function(req,res){
-  var db = dbconn.get();
-  var collection = db.collection('hotelCollection');
-
+  // var db = dbconn.get();
+  // var collection = db.collection('hotelCollection');
   var hotelId = req.params.hotelId; // I named this route in index.js
   console.log("getting one hotel with ID of ", hotelId );
-  collection
-    .findOne( { _id : ObjectId(hotelId) } , function(err, doc){
+
+  Hotel
+    .findById(hotelId)
+    .exec(function(err, doc){
       res
         .status(200)
         .json(doc);
     });
+    // .findOne( { _id : ObjectId(hotelId) } , function(err, doc){
+    //   res
+    //     .status(200)
+    //     .json(doc);
+    // });
 };
 
 // ON lecture 23 09/20/17
