@@ -10,12 +10,19 @@ module.exports.reviewsGetAll = function(req, res){
     .findById(hotelId)
     .select('reviews')
     .exec(function(err, doc){
-      console.log("returned doc: ", doc);
-      res
-        .status(200)
-        .json(doc.reviews);
-    });
-};
+      if(err || !doc){
+        console.log("Error finding reviews, reviews controller: ");
+        res
+          .status(500)
+          .json({"message": "there was an error finding reviews"});
+      }else{
+        console.log("returned doc: ", doc);
+        res
+          .status(200)
+          .json(doc.reviews);
+      }//else
+    });//exec
+};//reviewsGetAll
 
 // GET a single review for a particular hotel
 module.exports.reviewsGetOne = function(req, res){
@@ -27,10 +34,19 @@ module.exports.reviewsGetOne = function(req, res){
     .findById(hotelId)
     .select('reviews')
     .exec(function(err, hotel){
-      console.log("returned hotel: ", hotel);
-      var review = hotel.reviews.id(reviewId);
-      res
-        .status(200)
-        .json(review);
+      if(err || !hotel){
+        console.log("Error finding review, reviews controller: ");
+        res
+          .status(500)
+          .json({"message": "there was an error finding this review"});
+      }
+      else{
+        console.log("returned hotel: ", hotel);
+        var review = hotel.reviews.id(reviewId);
+        res
+          .status(200)
+          .json(review);
+      }
+
     });
 };
