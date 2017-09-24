@@ -103,7 +103,6 @@ module.exports.hotelsGetOne = function(req,res){
       }
 
       // status and message set above
-      // there seems to be a bug seeing the response on error and !doc
       res.status(response.status).json(response.message);
 
     });
