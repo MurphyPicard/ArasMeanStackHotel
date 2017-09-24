@@ -1,26 +1,37 @@
-var dbconn = require('../data/dbconnection.js');
-var ObjectId = require('mongodb').ObjectId;
-var hotelData = require('../data/hotel-data.json');
+// var dbconn = require('../data/dbconnection.js');
+// var ObjectId = require('mongodb').ObjectId;
+// var hotelData = require('../data/hotel-data.json');
+var mongoose = require('mongoose');
+var Hotel = mongoose.model('Hotel');
 
 module.exports.hotelsGetAll = function(req,res){
 
-  var db = dbconn.get();
-  var collection = db.collection('hotelCollection');
-  //
   var start = 0, count = 3; // which hotel to start at and how many to show
   (req.query.start) ? start = parseInt(req.query.start, 10) : start = 0 ;
   (req.query.count) ? count = parseInt(req.query.count, 10) : count = 5 ;
-  //
-  collection
+
+  Hotel
     .find()
     .skip(start)
     .limit(count)
-    .toArray(function(err, docs){
-      console.log('found these hotels: ', docs);
-      res
-        .status(200)
-        .json(docs);
+    .exec(function(err, hotels){
+      console.log("Found this many hotels: ", hotels.length);
+      res.json(hotels);
     });
+
+  // var db = dbconn.get();
+  // var collection = db.collection('hotelCollection');
+
+  // collection
+  //   .find()
+  //   .skip(start)
+  //   .limit(count)
+  //   .toArray(function(err, docs){
+  //     console.log('found these hotels: ', docs);
+  //     res
+  //       .status(200)
+  //       .json(docs);
+  //   });
 };
 
 module.exports.hotelsGetOne = function(req,res){
