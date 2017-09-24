@@ -17,7 +17,23 @@ mongoose.connection.on('error', function(err){
 
 process.on('SIGINT', function(){
   mongoose.connection.close(function(){
-    console.log('Ara, mongoose disconnected through app termination');
-    process.exit(0)
-  })
-})
+    console.log('Ara, mongoose disconnected through app termination (SIGINT)');
+    process.kill(process.pid, 'SIGINT');
+    process.exit(0);
+  });
+});
+
+process.on('SIGTERM', function(){
+  mongoose.connection.close(function(){
+    console.log('Ara, disconnected through via SIGTERM');
+    process.kill(process.pid, 'SIGTERM');
+    process.exit(0);
+  });
+});
+
+process.once('SIGUSR2', function(){
+  mongoose.connection.close(function(){
+    console.log('Ara, disconnected through via SIGUSR2');
+    process.kill(process.pid, 'SIGUSR2');
+  });
+});
