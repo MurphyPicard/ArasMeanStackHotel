@@ -101,3 +101,54 @@ module.exports.reviewsAddOne = function(req, res){
       }//else
     });//exec
 };
+
+// update one review
+module.exports.reviewsUpdateOne = function(req, res){
+  var hotelId = req.params.hotelId;
+  var reviewId = req.params.reviewId; // PUT route in index.js
+  console.log("PUT reviewId " + reviewId + " for hotelId " + hotelId);
+
+  Hotel
+    .findById(hotelId)
+    .select("reviews")
+    .exec(function(err, doc){
+      var response = {status: 200, message: doc};
+
+      if(err){
+        console.log("Error finding hotel");
+        response.status = 500;
+        response.message = err;
+      }
+      else if(!doc){
+        response.status = 404;
+        response.messaage = {"message": "hotel id not found"};
+      }
+
+      if(response.status !== 200){
+        res
+          .status(response.status)
+          .json(response.message);
+      }
+      else{
+        // doc.name = req.body.name;
+        // doc.description = req.body.description;
+        // doc.stars = parseInt(req.body.stars, 10);
+        // doc.services = _splitArray(req.body.services);
+        // doc.photos = _splitArray(req.body.photos);
+        // doc.currency = req.body.currency;
+        // doc.location = {
+        //   address: req.body.address,
+        //   coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
+        // };
+      }//else
+      doc.save(function(err, hotelUpdated){
+        if(err){
+          res.status(500).json(err);
+        }
+        else{
+          res.status(204).json(doc);
+        }
+      });//save
+    });//exec
+
+};
