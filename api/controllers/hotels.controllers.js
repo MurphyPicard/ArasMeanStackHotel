@@ -198,3 +198,25 @@ module.exports.hotelsUpdateOne = function(req, res){
       });//save
     });//exec
 };//hotelsUpdateOne
+
+// find a hotel and delete it
+module.exports.hotelsDeleteOne = function(req, res){
+  var hotelId = req.params.hotelId;
+  console.log("deleting hotel", hotelId);
+
+  Hotel
+    .findByIdAndRemove(hotelId)
+    .exec(function(err, hotel){
+      if(err){
+        res.status(404).json(err);
+      }
+      else{
+        console.log("hotel deleted, id: ", hotelId);
+        res.status(204).json();
+      }
+    });//exec
+
+
+
+
+};

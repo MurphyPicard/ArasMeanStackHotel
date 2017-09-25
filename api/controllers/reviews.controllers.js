@@ -102,7 +102,7 @@ module.exports.reviewsAddOne = function(req, res){
     });//exec
 };
 
-// update one review
+// update one review 
 module.exports.reviewsUpdateOne = function(req, res){
   var hotelId = req.params.hotelId;
   var reviewId = req.params.reviewId; // PUT route in index.js
@@ -111,44 +111,57 @@ module.exports.reviewsUpdateOne = function(req, res){
   Hotel
     .findById(hotelId)
     .select("reviews")
-    .exec(function(err, doc){
-      var response = {status: 200, message: doc};
+    .exec(function(err, hotel){
+      var thisReview;
+      var response = {status: 200, message: {} };
 
+      // changing response if something isn't right
       if(err){
         console.log("Error finding hotel");
         response.status = 500;
         response.message = err;
       }
-      else if(!doc){
+      else if(!hotel){
+        console.log('hotelId not found in hotelData', id);
         response.status = 404;
-        response.messaage = {"message": "hotel id not found"};
+        response.messaage = {"message": "hotel id not found " + id};
       }
+      else{
+        thisReview = hotel.reviews.id(reviewId);
+        if(!thisReview){
+          response.status = 404;
+          response.message = {"message": "reviewId not found ", reviewId};
+        }
+      }//else
 
-      if(response.status !== 200){
+      if(response.status !== 200){ // if something wasn't perfect
         res
           .status(response.status)
           .json(response.message);
       }
       else{
-        // doc.name = req.body.name;
-        // doc.description = req.body.description;
-        // doc.stars = parseInt(req.body.stars, 10);
-        // doc.services = _splitArray(req.body.services);
-        // doc.photos = _splitArray(req.body.photos);
-        // doc.currency = req.body.currency;
-        // doc.location = {
-        //   address: req.body.address,
-        //   coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
-        // };
-      }//else
-      doc.save(function(err, hotelUpdated){
-        if(err){
-          res.status(500).json(err);
-        }
-        else{
-          res.status(204).json(doc);
-        }
-      });//save
-    });//exec
+        thisReview.name = req.body.name;
+        thisReview.rating = req.body.rating;
+        thisReview.review = req.body.review;
 
-};
+        hotel.save(function(err, hotelUpdated){
+          if(err){
+            res.status(500).json(err);
+          }
+          else{
+            res.status(204).json();
+          }
+        });//save
+      }//else
+
+    });//exec
+};//reviewsUpdateOne
+
+
+module.exports.reviewsDeleteOne = function(req, res){
+
+
+
+
+
+};//reviewsDeleteOne
