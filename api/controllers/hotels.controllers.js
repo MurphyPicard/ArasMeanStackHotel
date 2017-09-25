@@ -150,7 +150,7 @@ module.exports.hotelsAddOne = function(req,res){
 };
 
 
-// update data of one hotel
+// tested - update data of one hotel
 module.exports.hotelsUpdateOne = function(req, res){
   var hotelId = req.params.hotelId;
   console.log("put hotelId: ", hotelId);
@@ -171,7 +171,7 @@ module.exports.hotelsUpdateOne = function(req, res){
         response.messaage = {"message": "hotel id not found"};
       }
 
-      if(response.status !== 200){
+      if(response.status !== 200){ // takes care of any funny business
         res
           .status(response.status)
           .json(response.message);
@@ -188,6 +188,7 @@ module.exports.hotelsUpdateOne = function(req, res){
           coordinates: [parseFloat(req.body.lng), parseFloat(req.body.lat)]
         };
       }//else
+
       doc.save(function(err, hotelUpdated){
         if(err){
           res.status(500).json(err);
@@ -199,7 +200,7 @@ module.exports.hotelsUpdateOne = function(req, res){
     });//exec
 };//hotelsUpdateOne
 
-// find a hotel and delete it
+// tested - find a hotel and delete it
 module.exports.hotelsDeleteOne = function(req, res){
   var hotelId = req.params.hotelId;
   console.log("deleting hotel", hotelId);
@@ -215,8 +216,4 @@ module.exports.hotelsDeleteOne = function(req, res){
         res.status(204).json();
       }
     });//exec
-
-
-
-
-};
+};//hotelsDeleteOne

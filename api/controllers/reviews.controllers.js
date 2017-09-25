@@ -102,7 +102,7 @@ module.exports.reviewsAddOne = function(req, res){
     });//exec
 };
 
-// update one review
+// tested - updates one review
 module.exports.reviewsUpdateOne = function(req, res){
   var hotelId = req.params.hotelId;
   var reviewId = req.params.reviewId; // PUT route in index.js
@@ -158,6 +158,7 @@ module.exports.reviewsUpdateOne = function(req, res){
 };//reviewsUpdateOne
 
 
+// tested - deletes one review
 module.exports.reviewsDeleteOne = function(req, res){
   var hotelId = req.params.hotelId;
   var reviewId = req.params.reviewId; // PUT route in index.js
@@ -195,9 +196,7 @@ module.exports.reviewsDeleteOne = function(req, res){
           .json(response.message);
       }
       else{
-        thisReview.name = req.body.name;
-        thisReview.rating = req.body.rating;
-        thisReview.review = req.body.review;
+        hotel.reviews.id(reviewId).remove();
 
         hotel.save(function(err, hotelUpdated){
           if(err){
@@ -209,8 +208,4 @@ module.exports.reviewsDeleteOne = function(req, res){
         });//save
       }//else
     });//exec
-
-
-
-
 };//reviewsDeleteOne
