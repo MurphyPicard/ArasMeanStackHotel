@@ -1,4 +1,4 @@
 <h1>{{vm.title}}</h1>
 <ol>
-  <li ng-repeat="hotel in vm.hotels">{{hotel.name}}</li>
+  <li ng-repeat="hotel in vm.hotels"><a href="#/hotel/{{ hotel._id }}">{{hotel.name}}</a></li>
 </ol>
