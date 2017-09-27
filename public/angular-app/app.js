@@ -1,8 +1,8 @@
 angular.module('meanhotel', ['ngRoute']).config(config);
 
 
-function config($routeProvider, $locationProvider, $httpProvider){
-  $locationProvider.hashPrefix('');
+function config($routeProvider, $httpProvider){
+  // $locationProvider.hashPrefix('');
   $routeProvider
     .when('/', {
       templateUrl: 'angular-app/hotel-list/hotels.html',
