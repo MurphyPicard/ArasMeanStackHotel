@@ -6,7 +6,7 @@ var bodyParser = require('body-parser'); // between path and routes
 
 var routes = require('./api/routes');
 
-app.set('port', 2222);
+app.set('port', 3030);
 
 app.use('/css', function(req, res, next){
   console.log(req.method, req.url);
