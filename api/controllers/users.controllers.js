@@ -27,7 +27,7 @@ module.exports.register = function(req, res){
 module.exports.login = function(req, res){
   console.log('logging in user');
 
-  var username = req.body.username;
+  var username = req.body.username; // set to unique in userSchema
   var password = req.body.password;
 
   User.findOne({
