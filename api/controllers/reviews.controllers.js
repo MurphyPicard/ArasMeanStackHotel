@@ -49,7 +49,7 @@ module.exports.reviewsGetOne = function(req, res){
           .json(review);
       }
 
-    });
+    }); 
 };
 
 //helper function

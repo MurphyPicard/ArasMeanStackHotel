@@ -18,7 +18,9 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // don't need to run bodyParser on static paths
 app.use(bodyParser.urlencoded({ extended: false })); // false means we only need strings and arrays in our form
+app.use( bodyParser.json() );
 
+// use /api for routes
 app.use('/api', routes);
 
 
