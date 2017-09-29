@@ -25,5 +25,9 @@ module.exports.register = function(req, res){
 };//register
 
 module.exports.login = function(req, res){
+  console.log('registering user');
 
+  var username = req.body.username;
+  var name = req.body.name || null;
+  var password = req.body.password;
 };//login
