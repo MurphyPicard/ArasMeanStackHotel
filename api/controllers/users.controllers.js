@@ -25,9 +25,21 @@ module.exports.register = function(req, res){
 };//register
 
 module.exports.login = function(req, res){
-  console.log('registering user');
+  console.log('logging in user');
 
   var username = req.body.username;
-  var name = req.body.name || null;
   var password = req.body.password;
+
+  User.findOne({
+    username: username
+  }).exec(function(err, user){
+    if (err) {
+      console.log("this is the error: ", err);
+      res.status(400).json(err);
+    }
+    else {
+      console.log('user found: ', user);
+      res.status(200).json(user);
+    }//else
+  });//exec
 };//login
