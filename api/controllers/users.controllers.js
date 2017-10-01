@@ -39,8 +39,14 @@ module.exports.login = function(req, res){
       res.status(400).json(err);
     }
     else {
-      console.log('user found: ', user);
-      res.status(200).json(user);
+      if(bcrypt.compareSync(password, user.password)){
+        console.log('user found: ', user);
+        res.status(200).json(user);
+      }
+      else{
+        res.status(401).json("Unauthorized");
+      }
+
     }//else
   });//exec
 };//login
