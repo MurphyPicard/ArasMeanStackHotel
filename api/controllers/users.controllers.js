@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var bcrypt = require('bcrypt-nodejs');
+var jwt = require('jsonwebtoken');
 
 module.exports.register = function(req, res){
   console.log('registering user');
@@ -41,7 +42,8 @@ module.exports.login = function(req, res){
     else {
       if(bcrypt.compareSync(password, user.password)){
         console.log('user found: ', user);
-        res.status(200).json(user);
+        var token = jwt.sign({ username: user.username }, 's3cr3t', { expiresIn: 9999})
+        res.status(200).json({success: true, token: token});
       }
       else{
         res.status(401).json("Unauthorized");
