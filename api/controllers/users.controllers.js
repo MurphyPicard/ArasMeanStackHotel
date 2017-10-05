@@ -42,6 +42,8 @@ module.exports.login = function(req, res){
     else {
       if(bcrypt.compareSync(password, user.password)){
         console.log('user found: ', user);
+        // token can be seen on postman users/login - tokens have a header, a payload and a signature
+        // will use this token in other requests against other secure endpoints
         var token = jwt.sign({ username: user.username }, 's3cr3t', { expiresIn: 9999})
         res.status(200).json({success: true, token: token});
       }
@@ -52,3 +54,25 @@ module.exports.login = function(req, res){
     }//else
   });//exec
 };//login
+
+
+//asdf
+module.exports.authenticate = function(req, res, next) {
+  var headerExists = req.headers.authorization;
+  if(headerExists){
+    var token = req.headers.authorization.split(' ')[1]; // authorization bearer xxx
+    jwt.verify(token, 's3cr3t', function(error, decoded){
+      if(error){
+        console.log(error);
+        res.status(401).json("Unauthorized");
+      }
+      else{
+        req.user = decoded.username;
+        next();
+      }
+    });//verify
+  }//if
+  else{
+    res.status(403).json('no token provided');
+  }
+};//authenticate
