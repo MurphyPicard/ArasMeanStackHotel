@@ -56,7 +56,7 @@ module.exports.login = function(req, res){
 };//login
 
 
-//asdf
+// use https://jwt.io/ for debugging tokens
 module.exports.authenticate = function(req, res, next) {
   var headerExists = req.headers.authorization;
   if(headerExists){
@@ -76,3 +76,9 @@ module.exports.authenticate = function(req, res, next) {
     res.status(403).json('no token provided');
   }
 };//authenticate
+
+
+
+
+
+//adsf

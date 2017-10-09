@@ -31,7 +31,7 @@ var runGeoQuery = function(req, res){
 };
 
 module.exports.hotelsGetAll = function(req,res){
-
+  console.log("requested by user: ", req.user);
   var start = 0, count = 3, maxCount = 10; // which hotel to start at and how many to show
 
   if(req.query && req.query.lat && req.query.lng){
