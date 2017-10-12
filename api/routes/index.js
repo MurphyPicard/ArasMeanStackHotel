@@ -5,6 +5,9 @@ var ctrlHotels = require('../controllers/hotels.controllers.js');
 var ctrlReviews = require('../controllers/reviews.controllers.js');
 var ctrlUsers = require('../controllers/users.controllers.js');
 
+
+// need to make a route for '/'
+
 // hotel routes
 router
   .route('/hotels')
