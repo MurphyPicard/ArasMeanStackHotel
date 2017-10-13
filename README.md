@@ -21,3 +21,7 @@ $ mongoexport --db meantest --collection meantest --out api/data/meantest.json -
 
 to go from my files to mongo ...
 $ mongoimport --db hotelData --collection hotelCollection --jsonArray api/data/hotel-data.json
+
+#todo
+
+Routes (login), CSS, testing
