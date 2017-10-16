@@ -21,6 +21,9 @@ function config($routeProvider, $httpProvider){
       templateUrl: 'angular-app/register/register.html',
       controller: RegisterController,
       controllerAs: 'vm'
+    })
+    .otherwise({
+    redirectTo: '/'  
     });
 
 }//config

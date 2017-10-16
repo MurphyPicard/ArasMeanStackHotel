@@ -10,6 +10,10 @@ body {
   padding-left: 100px;
 }
 
+.container{
+  padding: 60px 0 0 0;
+}
+
 .padded {
   padding-top: 30px;
 }
