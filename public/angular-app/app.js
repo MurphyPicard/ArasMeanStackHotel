@@ -3,6 +3,8 @@ angular.module('meanhotel', ['ngRoute']).config(config);
 
 function config($routeProvider, $httpProvider){
   // $locationProvider.hashPrefix('');
+
+  // need to check here for errors
   $routeProvider
     .when('/', {
       templateUrl: 'angular-app/main/main.html',
