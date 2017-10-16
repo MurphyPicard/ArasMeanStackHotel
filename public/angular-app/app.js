@@ -5,6 +5,9 @@ function config($routeProvider, $httpProvider){
   // $locationProvider.hashPrefix('');
   $routeProvider
     .when('/', {
+      templateUrl: 'angular-app/main/main.html',
+    })
+    .when('/hotels', {
       templateUrl: 'angular-app/hotel-list/hotels.html',
       controller: HotelsController,
       controllerAs: 'vm'
