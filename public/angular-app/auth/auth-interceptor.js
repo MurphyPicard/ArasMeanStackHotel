@@ -13,7 +13,7 @@ function AuthInterceptor($location, $q, $window, AuthFactory) {
       config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
     }
     return config;
-  }
+  }//request
 
   function response(response) {
     if (response.status === 200 && $window.sessionStorage.token && !AuthFactory.isLoggedIn) {
@@ -23,7 +23,7 @@ function AuthInterceptor($location, $q, $window, AuthFactory) {
       AuthFactory.isLoggedIn = false;
     }
     return response || $q.when(response);
-  }
+  }//response
 
   function responseError(rejection) {
     if (rejection.status === 401 || rejection.status === 403) {
@@ -32,5 +32,6 @@ function AuthInterceptor($location, $q, $window, AuthFactory) {
       $location.path('/');
     }
     return $q.reject(rejection);
-  }
-}
+  }//responseError
+
+}//AuthInterceptor
