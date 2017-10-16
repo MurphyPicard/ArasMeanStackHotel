@@ -23,7 +23,7 @@ function config($routeProvider, $httpProvider){
       controllerAs: 'vm'
     })
     .otherwise({
-    redirectTo: '/'  
+    redirectTo: '/'
     });
 
 }//config
